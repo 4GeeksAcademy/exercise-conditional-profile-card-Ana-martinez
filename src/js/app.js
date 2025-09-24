@@ -28,22 +28,49 @@ function render(variables = {}) {
   // if includeCover==false then we reset the cover code without the <img> tag to make the cover transparent.
   let cover = `<div class="cover"><img src="${variables.background}" /></div>`;
   if (variables.includeCover == false) cover = "<div class='cover'></div>";
+  // NOMBRE COMPLETO
+  let fullName =
+    (variables.name || "Name") + " " + (variables.lastName || "Last Name");
+
+  // UBICACIÓN
+  let location =
+    (variables.city || "City") +
+    (variables.country ? ", " + variables.country : "");
+
+  // REDES SOCIALES
+  let twitter = variables.twitter
+    ? `<li><a href="https://twitter.com/${variables.twitter}"><i class="fab fa-twitter"></i></a></li>`
+    : "";
+
+  let github = variables.github
+    ? `<li><a href="https://github.com/${variables.github}"><i class="fab fa-github"></i></a></li>`
+    : "";
+
+  let linkedin = variables.linkedin
+    ? `<li><a href="https://linkedin.com/in/${variables.linkedin}"><i class="fab fa-linkedin"></i></a></li>`
+    : "";
+
+  let instagram = variables.instagram
+    ? `<li><a href="https://instagram.com/${variables.instagram}"><i class="fab fa-instagram"></i></a></li>`
+    : "";
 
   // reset the website body with the new html output
-  document.querySelector("#widget_content").innerHTML = `<div class="widget">
-            ${cover}
-          <img src="${variables.avatarURL}" class="photo" />
-          <h1>Lucy Boilett</h1>
-          <h2>Web Developer</h2>
-          <h3>Miami, USA</h3>
-          <ul class="position-right">
-            <li><a href="https://twitter.com/4geeksacademy"><i class="fab fa-twitter"></i></a></li>
-            <li><a href="https://github.com/4geeksacademy"><i class="fab fa-github"></i></a></li>
-            <li><a href="https://linkedin.com/school/4geeksacademy"><i class="fab fa-linkedin"></i></a></li>
-            <li><a href="https://instagram.com/4geeksacademy"><i class="fab fa-instagram"></i></a></li>
-          </ul>
-        </div>
-    `;
+  document.querySelector("#widget_content").innerHTML = `
+    <div class="widget">
+      ${cover}
+      <img src="${variables.avatarURL ||
+        "https://tanzolymp.com/images/default-non-user-no-photo-1.jpg"}" class="photo" /> 
+      <h1>${fullName}</h1> 
+      <h2>${variables.role || "Your role here"}</h2> 
+      <h3>${location}</h3> 
+      <ul class="${variables.socialMediaPosition || "position-right"}">
+        ${twitter} 
+        ${github} 
+        ${linkedin} 
+        ${instagram}
+      </ul> 
+    </div>
+  `;
 }
 
 /**
